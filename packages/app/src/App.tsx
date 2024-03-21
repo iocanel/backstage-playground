@@ -34,7 +34,11 @@ import { CatalogGraphPage } from '@backstage/plugin-catalog-graph';
 import { RequirePermission } from '@backstage/plugin-permission-react';
 import { catalogEntityCreatePermission } from '@backstage/plugin-catalog-common/alpha';
 import { ScaffolderFieldExtensions } from '@backstage/plugin-scaffolder-react';
-import { QuarkusExtensionListField, QuarkusQuickstartPickerField } from '@qshift/plugin-quarkus';
+import {
+    QuarkusExtensionListField,
+    QuarkusQuickstartPickerField,
+    QuarkusVersionListField
+} from '@qshift/plugin-quarkus';
 import {QuarkusConsolePage} from "@qshift/plugin-quarkus-console";
 
 const app = createApp({
@@ -81,6 +85,7 @@ const routes = (
         <ScaffolderFieldExtensions>
             <QuarkusQuickstartPickerField />
             <QuarkusExtensionListField />
+            <QuarkusVersionListField />
         </ScaffolderFieldExtensions>
     </Route>
     <Route path="/api-docs" element={<ApiExplorerPage />} />
