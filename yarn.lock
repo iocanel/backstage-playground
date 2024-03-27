@@ -2153,7 +2153,7 @@
     "@material-ui/core" "^4.12.2"
     "@material-ui/icons" "^4.9.1"
 
-"@backstage/backend-app-api@^0.5.14":
+"@backstage/backend-app-api@^0.5.10", "@backstage/backend-app-api@^0.5.14":
   version "0.5.14"
   resolved "https://registry.yarnpkg.com/@backstage/backend-app-api/-/backend-app-api-0.5.14.tgz#a110bdbebc3b8b1b302b0726b7c92b2742fb5e3f"
   integrity sha512-Sqd5WRkp5x0JxK0ms5shes+VXmJ/t9++Z88CR8N3oBtp3H0t+iKewxOlgHhvYZKPyPiVCXZqKu7eCWH9UZ+Gqg==
@@ -2413,7 +2413,7 @@
   resolved "https://registry.yarnpkg.com/@backstage/backend-dev-utils/-/backend-dev-utils-0.1.3.tgz#31412b8e14027718a7cf229474e032acd862a1a3"
   integrity "sha1-MUErjhQCdxinzyKUdOAyrNhioaM= sha512-vq0zdpiAuMMAsaWavpCwmA4psi2EFoYmDEP5Kk9xU+jcDMTAH+ArNY+sn6fZ/6cA7IJEYNu6pFFEAXfn+dh6yg=="
 
-"@backstage/backend-dev-utils@^0.1.4":
+"@backstage/backend-dev-utils@^0.1.3", "@backstage/backend-dev-utils@^0.1.4":
   version "0.1.4"
   resolved "https://registry.yarnpkg.com/@backstage/backend-dev-utils/-/backend-dev-utils-0.1.4.tgz#65d204939c49b5df6a2148e8ad4dc718ccd1df07"
   integrity sha512-5YgAPz4CRtnqdaUlYCHwGmXvpkGQ1jaUMoDtiQ81WDxQrf+0iYZCwS4ftVyQmB0Ga6BaGOUf6GG/OuFA56Y5mA==
@@ -7591,10 +7591,10 @@
   resolved "https://registry.yarnpkg.com/@protobufjs/utf8/-/utf8-1.1.0.tgz#a777360b5b39a1a2e5106f8e858f2fd2d060c570"
   integrity "sha1-p3c2C1s5oaLlEG+OhY8v0tBgxXA= sha512-Vvn3zZrhQZkkBE8LSuW3em98c0FwgO4nxzv6OdSxPKJIEKY2bGbHn+mhGIPerzI4twdxaP8/0+06HBpwf345Lw=="
 
-"@qshift/plugin-quarkus-backend@^0.1.27":
-  version "0.1.27"
-  resolved "https://registry.yarnpkg.com/@qshift/plugin-quarkus-backend/-/plugin-quarkus-backend-0.1.27.tgz#9b2c63e94535939735abe0bc4d8b6d33f0315057"
-  integrity sha512-dEqpHJMoZAsCuND1umCBEPZy29rrcRauu+IsjY5uskpPHvs9T9FQrnBRLorfuTlbbm3BbinG6H/+doHxBr9p1A==
+"@qshift/plugin-quarkus-backend@^0.1.28":
+  version "0.1.28"
+  resolved "https://registry.yarnpkg.com/@qshift/plugin-quarkus-backend/-/plugin-quarkus-backend-0.1.28.tgz#9a7577db7040e5f15ef7234d06b55f642358312c"
+  integrity sha512-ET1cMstlxjx/eUxFAQE/7O09tWt4ALE/l5IFnTFoVDxOD3OgugsWxxdRu1tBwWxiqnrS0okWRwrnLj3TkLduAw==
   dependencies:
     "@backstage/backend-common" "^0.21.3"
     "@backstage/config" "^1.1.1"
@@ -7610,10 +7610,10 @@
     winston "^3.2.1"
     yn "^4.0.0"
 
-"@qshift/plugin-quarkus-console@^0.1.27":
-  version "0.1.27"
-  resolved "https://registry.yarnpkg.com/@qshift/plugin-quarkus-console/-/plugin-quarkus-console-0.1.27.tgz#0bf889d80be0dff71d2cffbe328c974c242a0407"
-  integrity sha512-6v8CUnUH1OpEvzK+XH+GRTov7fpcZ7xUWtvfd8HXDhDkLUgtMBsExdkLlQHvRV2M4YCK2fYfeXFzGQLWGWLHoQ==
+"@qshift/plugin-quarkus-console@^0.1.28":
+  version "0.1.28"
+  resolved "https://registry.yarnpkg.com/@qshift/plugin-quarkus-console/-/plugin-quarkus-console-0.1.28.tgz#7799209df1d1ed4ce7d3998d293d42c7df66a5e5"
+  integrity sha512-j4Uc88HxoghDLw/q0QMAcDlzTaRgI+yLzCX89coF0O+uR97MC7IL8GZpYOLLrnVWQnp6cotmtQzQdcgpAwXZdg==
   dependencies:
     "@backstage/core-components" "^0.13.9"
     "@backstage/core-plugin-api" "^1.9.0"
@@ -7627,14 +7627,16 @@
     "@material-ui/lab" "^4.0.0-alpha.61"
     "@rjsf/utils" "^5.15.1"
     "@types/react" "^17.0.0 || ^18.0.0"
+    "@types/react-helmet" "^6.1.11"
     axios "^1.6.5"
+    react-router-dom "^6.22.3"
     react-use "^17.2.4"
     styled-components "^6.1.8"
 
-"@qshift/plugin-quarkus@^0.1.27":
-  version "0.1.27"
-  resolved "https://registry.yarnpkg.com/@qshift/plugin-quarkus/-/plugin-quarkus-0.1.27.tgz#dc1ae39e71b465b9ecf80bf25cbae6282108bb88"
-  integrity sha512-ehoF2N8Jbk8LvJsE8To4QgrGhQ5fLYj5l1X22N6FpUw/X2pp1EuvZ4NEVCFWeKVrex1DbupT5JL7IkDl3h4lQw==
+"@qshift/plugin-quarkus@^0.1.28":
+  version "0.1.28"
+  resolved "https://registry.yarnpkg.com/@qshift/plugin-quarkus/-/plugin-quarkus-0.1.28.tgz#3bcb07bf32c315a32e8120f1061a52c974b75c78"
+  integrity sha512-4Ma7dJvk7qig3vPipr6xECJw7zNJSsFm4VU465GA653b2+7SCLvepHq7bI+K45/YjN7D2zwS1ScXr+IjhkE7GA==
   dependencies:
     "@backstage/core-components" "^0.13.9"
     "@backstage/core-plugin-api" "^1.9.0"
@@ -7965,6 +7967,11 @@
   version "1.14.2"
   resolved "https://registry.yarnpkg.com/@remix-run/router/-/router-1.14.2.tgz#4d58f59908d9197ba3179310077f25c88e49ed17"
   integrity "sha1-TVj1mQjZGXujF5MQB38lyI5J7Rc= sha512-ACXpdMM9hmKZww21yEqWwiLws/UPLhNKvimN8RrYSqPSvB3ov7sLvAcfvaxePeLvccTQKGdkDIhLYApZVDFuKg=="
+
+"@remix-run/router@1.15.3":
+  version "1.15.3"
+  resolved "https://registry.yarnpkg.com/@remix-run/router/-/router-1.15.3.tgz#d2509048d69dbb72d5389a14945339f1430b2d3c"
+  integrity sha512-Oy8rmScVrVxWZVOpEF57ovlnhpZ8CCPlnIIumVcV9nFdiSIrus99+Lw78ekXyGvVDlIsFJbSfmSovJUhCWYV3w==
 
 "@repeaterjs/repeater@^3.0.4":
   version "3.0.5"
@@ -10510,6 +10517,13 @@
   dependencies:
     "@types/react" "*"
 
+"@types/react-helmet@^6.1.11":
+  version "6.1.11"
+  resolved "https://registry.yarnpkg.com/@types/react-helmet/-/react-helmet-6.1.11.tgz#8cafcafff38f75361f451563ba7b406b0c5d3907"
+  integrity sha512-0QcdGLddTERotCXo3VFlUSWO3ztraw8nZ6e3zJSgG7apwV5xt+pJUS8ewPBqT4NYB1optGLprNQzFleIY84u/g==
+  dependencies:
+    "@types/react" "*"
+
 "@types/react-measure@^2.0.6":
   version "2.0.12"
   resolved "https://registry.yarnpkg.com/@types/react-measure/-/react-measure-2.0.12.tgz#e8ba05057357b9529aa4115064fe7ea77549f54c"
@@ -11397,8 +11411,8 @@ anymatch@^3.0.3, anymatch@~3.1.2:
     "@janus-idp/backstage-plugin-topology" "^1.18.2"
     "@material-ui/core" "^4.12.2"
     "@material-ui/icons" "^4.9.1"
-    "@qshift/plugin-quarkus" "^0.1.27"
-    "@qshift/plugin-quarkus-console" "^0.1.27"
+    "@qshift/plugin-quarkus" "^0.1.28"
+    "@qshift/plugin-quarkus-console" "^0.1.28"
     "@roadiehq/backstage-plugin-argo-cd" "2.4.1"
     history "^5.0.0"
     react "^18.0.2"
@@ -13373,6 +13387,14 @@ crelt@^1.0.5:
   version "1.0.6"
   resolved "https://registry.yarnpkg.com/crelt/-/crelt-1.0.6.tgz#7cc898ea74e190fb6ef9dae57f8f81cf7302df72"
   integrity "sha1-fMiY6nThkPtu+drlf4+Bz3MC33I= sha512-VQ2MBenTq1fWZUH9DJNGti7kKv6EeAuYr3cLwxUWhIu1baTaXh4Ib5W2CqHVqib4/MqbYGJqiL3Zb8GJZr3l4g=="
+
+cron@^2.0.0:
+  version "2.4.4"
+  resolved "https://registry.yarnpkg.com/cron/-/cron-2.4.4.tgz#988c1757b3f288d1dfcc360ee6d80087448916dc"
+  integrity sha512-MHlPImXJj3K7x7lyUHjtKEOl69CSlTOWxS89jiFgNkzXfvhVjhMz/nc7/EIfN9vgooZp8XTtXJ1FREdmbyXOiQ==
+  dependencies:
+    "@types/luxon" "~3.3.0"
+    luxon "~3.3.0"
 
 cron@^3.0.0:
   version "3.1.6"
@@ -19222,6 +19244,11 @@ luxon@^3.0.0, luxon@~3.4.0:
   resolved "https://registry.yarnpkg.com/luxon/-/luxon-3.4.4.tgz#cf20dc27dc532ba41a169c43fdcc0063601577af"
   integrity "sha1-zyDcJ9xTK6QaFpxD/cwAY2AVd68= sha512-zobTr7akeGHnv7eBOXcRgMeCP6+uyYsczwmeRCauvpvaAltgNyTbLH/+VaEAPUeWBT+1GuNmz4wC/6jtQzbbVA=="
 
+luxon@~3.3.0:
+  version "3.3.0"
+  resolved "https://registry.yarnpkg.com/luxon/-/luxon-3.3.0.tgz#d73ab5b5d2b49a461c47cedbc7e73309b4805b48"
+  integrity sha512-An0UCfG/rSiqtAIiBPO0Y9/zAnHUZxAMiCpTd5h2smgsj7GGmcenvrvww2cqNA8/4A5ZrD1gJpHN2mIHZQF+Mg==
+
 lz-string@^1.5.0:
   version "1.5.0"
   resolved "https://registry.yarnpkg.com/lz-string/-/lz-string-1.5.0.tgz#c1ab50f77887b712621201ba9fd4e3a6ed099941"
@@ -22622,15 +22649,6 @@ react-dev-utils@^12.0.0-next.60:
     strip-ansi "^6.0.1"
     text-table "^0.2.0"
 
-react-dom@^17.0.2:
-  version "17.0.2"
-  resolved "https://registry.yarnpkg.com/react-dom/-/react-dom-17.0.2.tgz#ecffb6845e3ad8dbfcdc498f0d0a939736502c23"
-  integrity "sha1-7P+2hF462Nv83EmPDQqTlzZQLCM= sha512-s4h96KtLDUQlsENhMn1ar8t2bEa+q/YAtj8pPPdIjPDGBDIVNsrD9aXNWqspUe6AzKCIG0C1HZZLqLV7qpOBGA=="
-  dependencies:
-    loose-envify "^1.1.0"
-    object-assign "^4.1.1"
-    scheduler "^0.20.2"
-
 react-dom@^18.0.2:
   version "18.2.0"
   resolved "https://registry.yarnpkg.com/react-dom/-/react-dom-18.2.0.tgz#22aaf38708db2674ed9ada224ca4aa708d821e3d"
@@ -22794,6 +22812,14 @@ react-remove-scroll@2.5.5:
     use-callback-ref "^1.3.0"
     use-sidecar "^1.1.2"
 
+react-router-dom@^6.22.3:
+  version "6.22.3"
+  resolved "https://registry.yarnpkg.com/react-router-dom/-/react-router-dom-6.22.3.tgz#9781415667fd1361a475146c5826d9f16752a691"
+  integrity sha512-7ZILI7HjcE+p31oQvwbokjk6OA/bnFxrhJ19n82Ex9Ph8fNAq+Hm/7KchpMGlTgWhUxRHMMCut+vEtNpWpowKw==
+  dependencies:
+    "@remix-run/router" "1.15.3"
+    react-router "6.22.3"
+
 react-router-dom@^6.3.0:
   version "6.21.3"
   resolved "https://registry.yarnpkg.com/react-router-dom/-/react-router-dom-6.21.3.tgz#ef3a7956a3699c7b82c21fcb3dbc63c313ed8c5d"
@@ -22808,6 +22834,13 @@ react-router@6.21.3, react-router@^6.3.0:
   integrity "sha1-gIbOqSLCv+u7ScZZSWdBjx8WfXA= sha512-a0H638ZXULv1OdkmiK6s6itNhoy33ywxmUFT/xtSoVyf9VnC7n7+VT4LjVzdIHSaF5TIh9ylUgxMXksHTgGrKg=="
   dependencies:
     "@remix-run/router" "1.14.2"
+
+react-router@6.22.3:
+  version "6.22.3"
+  resolved "https://registry.yarnpkg.com/react-router/-/react-router-6.22.3.tgz#9d9142f35e08be08c736a2082db5f0c9540a885e"
+  integrity sha512-dr2eb3Mj5zK2YISHK++foM9w4eBnO23eKnZEDs7c880P6oKbrjz/Svg9+nxqtHQK+oMW4OtjZca0RqPglXxguQ==
+  dependencies:
+    "@remix-run/router" "1.15.3"
 
 react-side-effect@^2.1.0:
   version "2.1.2"
@@ -23622,14 +23655,6 @@ saxes@^6.0.0:
   integrity "sha1-/ltKR2jfTxSiAbG6amXB89mYjMU= sha512-xAg7SOnEhrm5zI3puOOKyy1OMcMlIJZYNJY7xLBwSze0UjhPLnWfj2GF2EpT0jmzaJKIWKHLsaSSajf35bcYnA=="
   dependencies:
     xmlchars "^2.2.0"
-
-scheduler@^0.20.2:
-  version "0.20.2"
-  resolved "https://registry.yarnpkg.com/scheduler/-/scheduler-0.20.2.tgz#4baee39436e34aa93b4874bddcbf0fe8b8b50e91"
-  integrity "sha1-S67jlDbjSqk7SHS93L8P6Li1DpE= sha512-2eWfGgAqqWFGqtdMmcL5zCMK1U8KlXv8SQFGglL3CEtd0aDVDWgeF/YoCmvln55m5zSk3J/20hTaSBeSObsQDQ=="
-  dependencies:
-    loose-envify "^1.1.0"
-    object-assign "^4.1.1"
 
 scheduler@^0.23.0:
   version "0.23.0"

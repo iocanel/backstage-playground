@@ -39,7 +39,7 @@
     "@backstage/plugin-search-backend-module-techdocs": "^0.1.17",
     "@backstage/plugin-search-backend-node": "^1.2.17",
     "@backstage/plugin-techdocs-backend": "^1.9.6",
-    "@qshift/plugin-quarkus-backend": "^0.1.27",
+    "@qshift/plugin-quarkus-backend": "^0.1.28",
     "@roadiehq/scaffolder-backend-argocd": "^1.1.19",
     "@roadiehq/backstage-plugin-argo-cd-backend": "^2.14.0",
     "app": "link:../app",

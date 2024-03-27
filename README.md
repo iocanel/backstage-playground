@@ -18,15 +18,14 @@ The backstage QShift application has been designed to showcase QShift (Quarkus o
 
 | Backstage plugin                                                                                                                                                                                                                                          | Backend system                                   | 
 |-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|--------------------------------------------------|
-| [Core - 1.23.4](https://github.com/backstage/versions/blob/main/v1/releases/1.23.4/manifest.json)                                                                                                                                                         | GitHub                                           |
 | [Kubernetes](https://backstage.io/docs/features/kubernetes/)                                                                                                                                                                                              | OpenShift 4.14                                   |
-| [Quarkus](https://github.com/q-shift/backstage-plugins)                                                                                                                                                                                                   | code.quarkus.io, OpenShift Virtualization 4.14.3 |
+| [Quarkus front & backend](https://github.com/q-shift/backstage-plugins)                                                                                                                                                                                   | code.quarkus.io, OpenShift Virtualization 4.14.3 |
 | [Quarkus Console](https://github.com/q-shift/backstage-plugins?tab=readme-ov-file#quarkus-console)                                                                                                                                                        | OpenShift 4.14                                   |
 | ArgoCD [front](https://github.com/RoadieHQ/roadie-backstage-plugins/tree/main/plugins/frontend/backstage-plugin-argo-cd) & [backend](https://github.com/RoadieHQ/roadie-backstage-plugins/tree/main/plugins/scaffolder-actions/scaffolder-backend-argocd) | OpenShift GitOps 1.11.1                          |
 | [Tekton](https://github.com/janus-idp/backstage-plugins/tree/main/plugins/tekton)                                                                                                                                                                         | OpenShift Pipelines 1.13.1                       |
 | [Topology](https://github.com/janus-idp/backstage-plugins/tree/main/plugins/topology)                                                                                                                                                                     | OpenShift 4.14                                   |
 
-**Note**: This backstage application is based on the backstage's version: 1.23.4
+**Note**: This backstage application is based on the backstage's version: 1.24.x
 
 ## Prerequisites
 
