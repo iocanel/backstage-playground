@@ -1,0 +1,16 @@
+apiVersion: backstage.io/v1alpha1
+kind: Component
+metadata:
+  name: hg2jj
+  description: Hackers Guide to Jiu Jitsu, the Application
+  annotations:
+    backstage.io/source-location: url:https://github.com/iocanel/hg2jj/
+    backstage.io/techdocs-ref: dir:.
+  links:
+    - url: 'https://github.com/iocanel/hg2jj'
+      title: 'GitHub Repo'
+spec:
+  type: application
+  owner: User:iocanel
+  lifecycle: experimental
+  language: Rust

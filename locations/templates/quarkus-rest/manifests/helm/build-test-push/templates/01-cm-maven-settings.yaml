@@ -1,0 +1,20 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: maven-settings
+  namespace: {{ .Values.app.namespace }}
+  annotations:
+    argocd.argoproj.io/sync-wave: "0"
+data:
+  settings.xml: |
+    <?xml version="1.0" encoding="UTF-8"?>
+    <settings>
+      <mirrors>
+        <mirror>
+          <id>maven.org</id>
+          <name>Default mirror</name>
+          <url>https://repo1.maven.org/maven2</url>
+          <mirrorOf>central</mirrorOf>
+        </mirror>
+      </mirrors>
+    </settings>

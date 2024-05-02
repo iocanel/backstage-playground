@@ -1,0 +1,147 @@
+apiVersion: tekton.dev/v1
+kind: Pipeline
+metadata:
+  name: quarkus-test
+  namespace: {{ .Values.app.namespace }}
+  labels:
+    {{- include "backstage.labels" . | nindent 4 }}
+  annotations:
+    argocd.argoproj.io/sync-wave: "4"
+spec:
+  params:
+    - name: url
+      type: string
+      description: url of the git repository to clone
+    - name: dockerfile
+      type: string
+      description: Path to the dockerfile within the project cloned
+    - name: output-image
+      type: string
+      description: Fully Qualified Output Image
+    - name: virtualMachineName
+      type: string
+      description: name of the virtual machine to use
+    - name: virtualMachineNamespace
+      type: string
+      description: namespace where the virtual machine runs
+    - description: A boolean indicating whether we would like to execute a task
+      default: "false"
+      name: debug
+      type: string
+    - description: boolean which allows to deploy the application on the cluster with the generated resources
+      default: "true"
+      name: deploy
+      type: string
+  workspaces:
+    - name: project-dir
+    - name: maven-m2-repo
+    - name: maven-settings
+    - name: dockerconfig-ws
+  tasks:
+    - name: rm-workspace
+      taskRef:
+        name: rm-workspace
+      workspaces:
+        - name: project-dir
+          workspace: project-dir
+
+    - name: git-clone
+      runAfter:
+        - rm-workspace
+      taskRef:
+        name: git-clone
+      params:
+        - name: url
+          value: $(params.url)
+      workspaces:
+        - name: project-dir
+          workspace: project-dir
+
+    #- name: ls-workspace
+    #  runAfter:
+    #    - git-clone
+    #  taskRef:
+    #    name: ls-workspace
+    #  workspaces:
+    #    - name: project-dir
+    #      workspace: project-dir
+
+    - name: virtualmachine
+      runAfter:
+        - git-clone
+      taskRef:
+        name: virtualmachine
+      params:
+        - name: name
+          value: $(params.virtualMachineName)
+        - name: namespace
+          value: $(params.virtualMachineNamespace)
+
+    - # This step could become optional. Until now, it helps to know if the VM has been created,
+      # if docker is accessible remotely, if a container can be created, etc
+      name: create-container-remote-docker
+      runAfter:
+        - virtualmachine
+      when:
+        - input: $(params.debug)
+          operator: in
+          values: [ "true" ]
+      params:
+        - name: dockerHost
+          value: $(tasks.virtualmachine.results.ip)
+      taskSpec:
+        params:
+          - name: dockerHost
+            description: docker host to use
+            type: string
+        steps:
+          - name: create-container
+            image: ghcr.io/ch007m/podman-client
+            script: |
+              echo "Creating a container against daemon host: $(params.dockerHost)."
+              PODMAN_CMD="podman -r --url=tcp://$(params.dockerHost):2376"
+
+              $PODMAN_CMD run -i --name my-postgres -e POSTGRES_PASSWORD=mysecretpassword -p 5432:5432 docker.io/postgres
+
+              # CONTAINER_ID=$($PODMAN_CMD ps -f name=my-postgres --format=json | jq -r '.[] | .Id')
+              # $PODMAN_CMD kill $CONTAINER_ID
+              # $PODMAN_CMD rm $CONTAINER_ID
+
+    - name: maven-test
+      runAfter:
+        - create-container-remote-docker
+      taskRef:
+        name: maven
+      params:
+        - name: DOCKER_HOST
+          value: "tcp://$(tasks.virtualmachine.results.ip):2376"
+        - name: DOCKER_CONFIG
+          value: $(workspaces.dockerconfig.path)/config.json
+        - name: GOALS
+          value:
+            - -B
+            - test
+      workspaces:
+        - name: maven-settings
+          workspace: maven-settings
+        - name: project-dir
+          workspace: project-dir
+        - name: maven-m2-repo
+          workspace: maven-m2-repo
+        - name: dockerconfig
+          workspace: dockerconfig-ws
+
+    #- name: list-files
+    #  runAfter:
+    #    - maven-compile
+    #  taskSpec:
+    #    steps:
+    #      - name: list-files
+    #        image: quay.io/centos/centos:latest
+    #        script: |
+    #          #!/usr/bin/env bash
+    #          set -xe
+    #          ls -al $(workspaces.project-dir.path)/src/main/docker
+    #  workspaces:
+    #    - name: source
+    #      workspace: project-dir

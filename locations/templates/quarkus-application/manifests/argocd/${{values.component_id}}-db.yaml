@@ -1,0 +1,41 @@
+{% if values.database == 'quarkus-jdbc-postgresql' %}
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: ${{ values.component_id }}-db
+  namespace: ${{ values.appNamespace }}
+  finalizers:
+    - resources-finalizer.argocd.argoproj.io
+spec:
+  project: default
+  destination:
+    server: https://kubernetes.default.svc
+    namespace: ${{ values.appNamespace }}
+  source:
+    chart: postgresql
+    repoURL: https://charts.bitnami.com/bitnami
+    targetRevision: 11.9.13
+    helm:
+      values: |
+        auth:
+          username: ${{ values.database_username }}
+          database: ${{ values.database_name }}
+        primary:
+          podSecurityContext:
+            enabled: false
+          containerSecurityContext:
+            enabled: false
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: false
+    syncOptions:
+      - CreateNamespace=true
+      - RespectIgnoreDifferences=true
+      - ApplyOutOfSyncOnly=true
+    retry:
+      backoff:
+        duration: 5s # the amount to back off. Default unit is seconds, but could also be a duration (e.g. "2m", "1h")
+        factor: 2 # a factor to multiply the base duration after each failed retry
+        maxDuration: 10m # the maximum amount of time allowed for the backoff strategy
+{% endif %}

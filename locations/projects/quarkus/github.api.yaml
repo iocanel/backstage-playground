@@ -1,0 +1,85 @@
+apiVersion: backstage.io/v1alpha1
+kind: API
+metadata:
+  name: github.api
+  description: Github API
+spec:
+  type: openapi # Could be 'openapi', 'graphql', 'grpc', etc.
+  lifecycle: production
+  owner: Group:quarkus
+  definition: |
+     openapi: 3.0.3
+     info:
+       title: Simplified GitHub API
+       version: 1.0.0
+       description: A simplified version of the GitHub API including basic repository and issues management.
+     servers:
+       - url: 'https://api.github.com'
+         description: GitHub API endpoint
+     paths:
+       /users/{username}/repos:
+         get:
+           summary: List repositories for a user
+           operationId: listUserRepos
+           parameters:
+             - name: username
+               in: path
+               required: true
+               schema:
+                 type: string
+               description: Username to fetch repositories for
+           responses:
+             '200':
+               description: A list of repositories
+               content:
+                 application/json:
+                   schema:
+                     type: array
+                     items:
+                       $ref: '#/components/schemas/Repository'
+       /repos/{owner}/{repo}:
+         get:
+           summary: Get a single repository details
+           operationId: getRepository
+           parameters:
+             - name: owner
+               in: path
+               required: true
+               schema:
+                 type: string
+             - name: repo
+               in: path
+               required: true
+               schema:
+                 type: string
+           responses:
+             '200':
+               description: Detailed repository data
+               content:
+                 application/json:
+                   schema:
+                     $ref: '#/components/schemas/Repository'
+       /repos/{owner}/{repo}/issues:
+         get:
+           summary: List issues in a repository
+           operationId: listRepoIssues
+           parameters:
+             - name: owner
+               in: path
+               required: true
+               schema:
+                 type: string
+             - name: repo
+               in: path
+               required: true
+               schema:
+                 type: string
+           responses:
+             '200':
+               description: An array of issues
+               content:
+                 application/json:
+                   schema:
+                     type: array
+                     items:
+                       $ref: '#/components/schemas/Issue'

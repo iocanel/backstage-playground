@@ -1,0 +1,23 @@
+apiVersion: backstage.io/v1alpha1
+kind: Component
+metadata:
+  name: quarkus
+  description: Supersonic Subatomic Java
+  annotations:
+    backstage.io/source-location: url:https://github.com/quarkusio/quarkus/
+    github.com/project-slug: quarkusio/quarkus
+  links:
+    - url: 'https://github.com/qurkusio/quarkus'
+      title: 'GitHub Repo'
+    - url: 'https://quarkus.io'
+      title: 'Home Page'
+    - url: 'https://code.quarkus.io'
+      title: 'Project Creator'
+spec:
+  type: framework
+  owner: Group:quarkus
+  lifecycle: experimental
+  language: Java
+  dependsOn:
+    - component:default/kubernetes-client
+    - component:default/dekorate

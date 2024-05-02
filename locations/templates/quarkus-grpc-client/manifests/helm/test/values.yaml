@@ -1,0 +1,18 @@
+app:
+  name: ${{ values.component_id }}
+  namespace: ${{ values.appNamespace }}
+  virtualMachineName: ${{ values.virtualMachineName }}
+  virtualMachineNamespace: ${{ values.virtualMachineNamespace }}
+  cluster:    #${{ values.cluster }}
+
+git:
+  branch: ${{ values.git_branch }}
+  repo: ${{ values.git_repo }}
+  org: ${{ values.git_org }}
+  name: ${{ values.git_repo_name }}
+
+image:
+  url: ${{ values.image_url }}
+  registry: ${{ values.image_registry }} # NOT USED
+  organization: ${{ values.image_org }} # NOT USED
+  name: ${{ values.image_name }} # NOT USED

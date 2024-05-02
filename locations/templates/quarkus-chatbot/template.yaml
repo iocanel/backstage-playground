@@ -1,0 +1,159 @@
+apiVersion: scaffolder.backstage.io/v1beta3
+kind: Template
+metadata:
+  name: quarkus-chatbot-template
+  title: Create a Quarkus Chatbot
+  description: Create a starter Quarkus Chatbot
+  tags:
+    - quarkus
+    - java
+    - maven
+spec:
+  owner: iocanel
+  system: iocanel
+  type: service
+
+  parameters:
+    - title: Provide information about the new component
+      required:
+        - orgName
+        - repoName
+        - owner
+      properties:
+        orgName:
+          title: Organization Name
+          type: string
+          default: iocanel
+        repoName:
+          title: Repository Name
+          type: string
+          default: my-quarkus-chatbot
+        description:
+          title: Description
+          type: string
+          description: A very simple Quarkus chatbot that uses Langchain4j
+        owner:
+          title: Owner
+          type: string
+          default: user:iocanel
+          ui:field: EntityPicker
+          ui:options:
+            catalogFilter:
+              kind:
+                - Group
+                - User
+    - title: Provide information about the Java metadata
+      required:
+        - groupId
+        - artifactId
+        - version
+        - java_package_name
+      properties:
+        groupId:
+          title: Group ID
+          type: string
+          default: io.quarkus
+          description: Maven Group ID eg (io.quarkus)
+        artifactId:
+          title: Artifact ID
+          type: string
+          default: chatbot
+          description: Maven Artifact ID
+        version: 
+          title: Version
+          type: string
+          default: 1.0.0-SNAPSHOT
+          description: Maven Artifact Version
+        java_package_name:
+          title: Java Package Namespace
+          type: string
+          default: io.quarkus.chatbot
+          description: Name for the Java Package (e.g. io.quarkus.chatbot) should match Group ID and Artifact ID
+  steps:
+    - id: template
+      name: Generating the Source Code Component
+      action: fetch:template
+      input:
+        url: ./skeleton
+        values:
+          orgName: ${{ parameters.orgName }}
+          repoName: ${{ parameters.repoName }}
+          owner: ${{ parameters.owner }}
+          applicationType: api
+          description: ${{ parameters.description }}
+          namespace: ${{ parameters.namespace }}
+          imageUrl: ${{ parameters.imageUrl }}
+          imageBuilder: s2i-java
+          imageRepository: ${{ parameters.imageRepository }}
+          port: 8080
+          groupId: ${{ parameters.groupId }}
+          artifactId: ${{ parameters.artifactId }}
+          version: ${{ parameters.version }}
+          java_package_name: ${{ parameters.java_package_name }}
+          sourceControl: github.com
+
+    - id: catalogTemplate
+      name: Generating the Catalog Info Component
+      action: fetch:template
+      input:
+        url: ./catalog-info/
+        values:
+          orgName: ${{ parameters.orgName }}
+          repoName: ${{ parameters.repoName }}
+          owner: ${{ parameters.owner }}
+          applicationType: api
+          description: ${{ parameters.description }}
+          namespace: ${{ parameters.namespace }}
+          imageUrl: ${{ parameters.imageUrl }}
+          imageBuilder: s2i-java
+          imageRepository: ${{ parameters.imageRepository }}
+          port: 8080
+          groupId: ${{ parameters.groupId }}
+          artifactId: ${{ parameters.artifactId }}
+          java_package_name: ${{ parameters.java_package_name }}
+          sourceControl: github.com
+
+    - id: docsTemplate
+      name: Generating TechDocs
+      action: fetch:template
+      input:
+        url: ./techdocs/
+        values:
+          orgName: ${{ parameters.orgName }}
+          repoName: ${{ parameters.repoName }}
+          owner: ${{ parameters.owner }}
+          applicationType: api
+          description: ${{ parameters.description }}
+          namespace: ${{ parameters.namespace }}
+          imageUrl: ${{ parameters.imageUrl }}
+          imageBuilder: s2i-java
+          imageRepository: ${{ parameters.imageRepository }}
+          port: 8080
+          groupId: ${{ parameters.groupId }}
+          artifactId: ${{ parameters.artifactId }}
+          java_package_name: ${{ parameters.java_package_name }}
+          sourceControl: github.com
+
+    - id: publish
+      name: Publishing to the Source Code Repository
+      action: publish:github
+      input:
+        allowedHosts: ['github.com']
+        description: ${{ parameters.description }}
+        repoUrl: github.com?owner=${{ parameters.orgName }}&repo=${{ parameters.repoName }}
+        defaultBranch: main
+
+    - id: register
+      name: Registering the Catalog Info Component
+      action: catalog:register
+      input:
+        repoContentsUrl: ${{ steps.publish.output.repoContentsUrl }}
+        catalogInfoPath: /catalog-info.yaml
+
+  output:
+    links:
+      - title: Open the Source Code Repository
+        url: ${{ steps.publish.output.remoteUrl }}
+      - title: Open the Catalog Info Component
+        icon: catalog
+        entityRef: ${{ steps.register.output.entityRef }}

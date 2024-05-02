@@ -1,0 +1,11 @@
+---
+apiVersion: backstage.io/v1alpha1
+kind: Group
+metadata:
+  name: dekorate
+spec:
+  type: team
+  children: []
+  members: [iocanel]
+---
+

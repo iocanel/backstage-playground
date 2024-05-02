@@ -1,0 +1,19 @@
+apiVersion: backstage.io/v1alpha1
+kind: Component
+metadata:
+  name: iocanel.com
+  description: My personal website
+  annotations:
+    backstage.io/source-location: url:https://github.com/iocanel/iocanel.github.io/
+  links:
+    - url: 'https://iocanel.com'
+      title: 'Home Page'
+    - url: 'https://github.com/iocanel/iocanel.github.io'
+      title: 'GitHub Repo'
+spec:
+  type: website
+  owner: User:iocanel
+  lifecycle: experimental
+  dependsOn:
+    - component:default/blog
+    - component:default/presentations

@@ -1,0 +1,11 @@
+#!/bin/bash
+
+APP_NAME=$1
+
+ARGOCD_SERVER=openshift-gitops-server-openshift-gitops.apps.qshift.snowdrop.dev
+ARGOCD_USER=admin
+ARGOCD_PWD=`pass show snowdrop/qshift/argocd/admin`
+argocd login --insecure $ARGOCD_SERVER --username $ARGOCD_USER --password $ARGOCD_PWD --grpc-web
+argocd app delete openshift-gitops/${APP_NAME}-bootstrap --cascade --grpc-web -y
+
+gh repo delete iocanel/${APP_NAME} --yes

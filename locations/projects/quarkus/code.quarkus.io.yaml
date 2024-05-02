@@ -1,0 +1,23 @@
+apiVersion: backstage.io/v1alpha1
+kind: Component
+metadata:
+  name: code.quarkus.io
+  description: A Quarkus Project Generator
+  annotations:
+    backstage.io/source-location: url:https://github.com/quarkusio/code.quarkus.io/
+    backstage.io/provides-apis: 'code.quarkus.api'
+  links:
+    - url: 'https://github.com/qurkusio/code.quarkus.io'
+      title: 'GitHub Repo'
+    - url: 'https://code.quarkus.io'
+      title: 'Home Page'
+spec:
+  type: service
+  owner: Group:quarkus
+  lifecycle: experimental
+  language: Java
+  framework: Quarkus
+  providesApis:
+    - code.quarkus.api
+  dependsOn:
+    - component:default/quarkus

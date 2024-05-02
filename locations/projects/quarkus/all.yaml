@@ -1,0 +1,15 @@
+apiVersion: backstage.io/v1alpha1
+kind: Location
+metadata:
+  name: quarkus
+  description: Quarkus Location
+spec:
+  targets:
+    - ./org.yaml
+    - ./quarkus.yaml
+    - ./code.quarkus.api.yaml
+    - ./code.quarkus.io.yaml
+    - ./github.api.yaml
+    - ./quarkus-github-bot.yaml
+    - ./authzed.api.yaml
+    - ./tracker.api.yaml

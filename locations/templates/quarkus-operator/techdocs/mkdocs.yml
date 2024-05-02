@@ -1,0 +1,5 @@
+site_name: '${{ values.artifactId }}'
+site_description: '${{ values.description }}'
+
+nav:
+  - Home: index.md

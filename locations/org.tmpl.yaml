@@ -1,0 +1,19 @@
+---
+apiVersion: backstage.io/v1alpha1
+kind: Group
+metadata:
+  name: ${BACKSTAGE_TEAM_NAME}
+spec:
+  type: team
+  children: []
+---
+apiVersion: backstage.io/v1alpha1
+kind: User
+metadata:
+  name: ${BACKSTAGE_GITHUB_USER}
+spec:
+  displayName: Ioannis Canellos
+  email: iocanel@gmail.com
+  picture: https://avatars.githubusercontent.com/u/402008
+  memberOf: [${BACKSTAGE_TEAM_NAME}]
+

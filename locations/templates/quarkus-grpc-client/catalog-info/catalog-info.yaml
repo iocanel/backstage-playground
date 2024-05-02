@@ -1,0 +1,57 @@
+{%- if values.quarkusVersion %}
+  {%- set streamKey = values.quarkusVersion %}
+  {%- set quarkusVersionArr = streamKey.split(':') %}
+  {%- set quarkusVersion = quarkusVersionArr[1] %}
+{%- else %}
+  {%- set quarkusVersion = '' %}
+{%- endif %}
+apiVersion: backstage.io/v1alpha1
+kind: Component
+metadata:
+  name: ${{ values.component_id }}
+  {%- if values.title %}
+  title: ${{ values.title }}
+  {%- endif %}
+  {%- if values.description %}
+  description: ${{ values.description }}
+  {%- endif %}
+  annotations:
+    argocd/app-name: ${{values.component_id}}-bootstrap
+    {%- if values.ci == "../../../skeletons/tekton/" %}
+    tektonci/build-namespace: ${{ values.namespace }}
+    {%- endif %}
+    backstage.io/kubernetes-id: ${{values.component_id}}
+    # It must be commented otherwise we cannot see the Tekton pipelines resources
+    # backstage.io/kubernetes-namespace: ${{values.namespace}}
+    backstage.io/source-location: url:https://${{values.host}}/${{values.destination}}
+    # The janus-idp.io/tekton allows to set the boolean value: isTektonCIAvailable which is used within the UI to enable/disable the TektonCIComponent
+    janus-idp.io/tekton: ${{values.component_id}}
+    backstage.io/techdocs-ref: dir:.
+    github.com/project-slug: ${{ values.orgName }}/${{ values.repoName }}/
+    # See: topology annotation: https://github.com/janus-idp/backstage-plugins/tree/main/plugins/topology
+    app.kubernetes.io/name: quarkus
+    app.quarkus.io/quarkus-version: "${{ quarkusVersion }}"
+  tags:
+    - java
+    - quarkus
+  links:
+    - url: https://${{ values.component_id }}-${{ values.namespace }}.${{ values.clusterDomainName }}/
+      title: Quarkus application url
+      icon: web
+spec:
+  type: ${{ values.applicationType }}
+  {%- if values.system %}
+  system: ${{ values.system }}
+  {%- endif %}
+  {%- if values.lifecycle %}
+  lifecycle: ${{ values.lifecycle }}
+  {%- else %}
+  lifecycle: production
+  {%- endif %}
+  owner: ${{ values.owner }}
+  dependsOn:
+    - ${{ values.apiRef }}
+  {%- if values.partOf %}
+  partOf:
+    - ${{ values.partOf }}
+  {%- endif %}

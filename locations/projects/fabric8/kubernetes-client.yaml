@@ -1,0 +1,18 @@
+apiVersion: backstage.io/v1alpha1
+kind: Component
+metadata:
+  name: kubernetes-client
+  description: A Kubernetes Client Framework for Java
+  annotations:
+    backstage.io/source-location: url:https://github.com/fabric8io/kubernetes-client/
+    github.com/project-slug: fabric8io/kubernetes-client
+  links:
+    - url: 'https://github.com/fabric8io/kubernetes-client'
+      title: 'GitHub Repo'
+spec:
+  type: library
+  owner: Group:fabric8
+  lifecycle: experimental
+  language: Java
+  dependsOn:
+    - component:default/sundrio

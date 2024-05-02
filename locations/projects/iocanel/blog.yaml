@@ -1,0 +1,15 @@
+apiVersion: backstage.io/v1alpha1
+kind: Component
+metadata:
+  name: blog
+  description: A repository with my blog posts
+  annotations:
+    backstage.io/source-location: url:https://github.com/iocanel/blog/
+  links:
+    - url: 'https://github.com/iocanel/blog'
+      title: 'GitHub Repo'
+spec:
+  type: documentation
+  owner: User:iocanel
+  lifecycle: experimental
+  language: OrgMode

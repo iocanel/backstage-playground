@@ -1,0 +1,21 @@
+apiVersion: backstage.io/v1alpha1
+kind: Component
+metadata:
+  name: quarkus-github-bot
+  description: A Quarkus bot for managing Quarkus projects
+  annotations:
+    backstage.io/source-location: url:https://github.com/quarkusio/quarkus-github-bot/
+    backstage.io/provides-apis: 'github.api'
+  links:
+    - url: 'https://github.com/qurkusio/quarkus-github-bot'
+      title: 'GitHub Repo'
+spec:
+  type: service
+  owner: Group:quarkus
+  lifecycle: experimental
+  language: Java
+  framework: Quarkus
+  consumesApis:
+    - github.api
+  dependsOn:
+    - component:default/quarkus

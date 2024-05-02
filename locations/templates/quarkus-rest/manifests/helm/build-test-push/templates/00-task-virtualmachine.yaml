@@ -1,0 +1,35 @@
+apiVersion: tekton.dev/v1beta1
+kind: Task
+metadata:
+  name: virtualmachine
+  namespace: {{ .Values.app.namespace }}
+  annotations:
+    argocd.argoproj.io/sync-wave: "0"
+spec:
+  params:
+    - name: name
+      description: Name of the VirtualMachine to look for
+      type: string
+      default: "fedora38"
+    - name: namespace
+      description: namespace where the virtualmachine is running
+      type: string
+  results:
+    - name: ip
+      description: IP address of the virtual machine
+  steps:
+    - name: vm-ip
+      image: ghcr.io/ch007m/kubectl-jq
+      env:
+        - name: PARAM_VM_NAME
+          value: $(params.name)
+        - name: PARAM_VM_NAMESPACE
+          value: $(params.namespace)
+      args:
+        - "--env-vars"
+      script: |
+        #!/usr/bin/env bash
+        set -eu
+        
+        VM_IP=$(kubectl get vmi/${PARAM_VM_NAME} -n ${PARAM_VM_NAMESPACE} -ojson | jq -r '.status.interfaces[] | .ipAddress')
+        echo -n "$VM_IP"  | tee "$(results.ip.path)"

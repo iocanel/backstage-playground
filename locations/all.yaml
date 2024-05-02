@@ -1,0 +1,11 @@
+apiVersion: backstage.io/v1alpha1
+kind: Location
+metadata:
+  name: all
+  description: Root location
+spec:
+  targets:
+    - ./org.yaml
+    - ./slides/all.yaml
+    - ./projects/all.yaml
+    - ./templates/all.yaml

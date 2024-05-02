@@ -47,6 +47,7 @@
     "@qshift/plugin-quarkus": "^0.1.28",
     "@qshift/plugin-quarkus-console": "^0.1.28",
     "@roadiehq/backstage-plugin-argo-cd": "2.4.1",
+    "@iocanel/plugin-presentation": "^0.1.0",
     "history": "^5.0.0",
     "react": "^18.0.2",
     "react-dom": "^18.0.2",

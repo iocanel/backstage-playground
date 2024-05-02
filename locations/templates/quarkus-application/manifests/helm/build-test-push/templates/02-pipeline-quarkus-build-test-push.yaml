@@ -1,0 +1,175 @@
+apiVersion: tekton.dev/v1
+kind: Pipeline
+metadata:
+  name: quarkus-build-test-push
+  namespace: {{ .Values.app.namespace }}
+  labels:
+    {{- include "backstage.labels" . | nindent 4 }}
+  annotations:
+    argocd.argoproj.io/sync-wave: "4"
+spec:
+  params:
+    - name: url
+      type: string
+      description: url of the git repository to clone
+    - name: dockerfile
+      type: string
+      description: Path to the dockerfile within the project cloned
+    - name: output-image
+      type: string
+      description: Fully Qualified Output Image
+    - description: A boolean indicating whether we would like to perform a quarkus native build
+      default: "false"
+      name: native
+      type: string
+    - name: virtualMachineName
+      type: string
+      description: name of the virtual machine to use
+    - name: virtualMachineNamespace
+      type: string
+      description: namespace where the virtual machine runs
+    - description: A boolean indicating whether we would like to execute a task
+      default: "false"
+      name: debug
+      type: string
+    - description: boolean which allows to deploy the application on the cluster with the generated resources
+      default: "true"
+      name: deploy
+      type: string
+  workspaces:
+    - name: project-dir
+    - name: maven-m2-repo
+    - name: maven-settings
+    - name: dockerconfig-ws
+  tasks:
+    - name: rm-workspace
+      taskRef:
+        name: rm-workspace
+      workspaces:
+        - name: project-dir
+          workspace: project-dir
+
+    - name: git-clone
+      runAfter:
+        - rm-workspace
+      taskRef:
+        name: git-clone
+      params:
+        - name: url
+          value: $(params.url)
+      workspaces:
+        - name: project-dir
+          workspace: project-dir
+
+    - name: virtualmachine
+      runAfter:
+        - git-clone
+      taskRef:
+        name: virtualmachine
+      params:
+        - name: name
+          value: $(params.virtualMachineName)
+        - name: namespace
+          value: $(params.virtualMachineNamespace)
+
+    - # This step is optional and only executed if debug is enabled
+      # if docker is accessible remotely, then a container is created
+      name: create-container-remote-docker
+      runAfter:
+        - virtualmachine
+      when:
+        - input: $(params.debug)
+          operator: in
+          values: [ "true" ]
+      params:
+        - name: dockerHost
+          value: $(tasks.virtualmachine.results.ip)
+      taskSpec:
+        params:
+          - name: dockerHost
+            description: docker host to use
+            type: string
+        steps:
+          - name: create-container
+            image: ghcr.io/ch007m/podman-client
+            script: |
+              echo "Creating a container against daemon host: $(params.dockerHost)."
+              PODMAN_CMD="podman -r --url=tcp://$(params.dockerHost):2376"
+
+              $PODMAN_CMD run -i --name my-postgres -e POSTGRES_PASSWORD=mysecretpassword -p 5432:5432 docker.io/postgres
+
+              # CONTAINER_ID=$($PODMAN_CMD ps -f name=my-postgres --format=json | jq -r '.[] | .Id')
+              # $PODMAN_CMD kill $CONTAINER_ID
+              # $PODMAN_CMD rm $CONTAINER_ID
+
+    - name: maven-package-test
+      runAfter:
+        - create-container-remote-docker
+      taskRef:
+        name: maven
+      params:
+        - name: DOCKER_HOST
+          value: "tcp://$(tasks.virtualmachine.results.ip):2376"
+        - name: DOCKER_CONFIG
+          value: $(workspaces.dockerconfig.path)/config.json
+        - name: GOALS
+          value:
+            - package
+            - -B
+      workspaces:
+        - name: maven-settings
+          workspace: maven-settings
+        - name: project-dir
+          workspace: project-dir
+        - name: maven-m2-repo
+          workspace: maven-m2-repo
+        - name: dockerconfig
+          workspace: dockerconfig-ws
+
+    - # This step is optional and only executed if native build is specified
+      name: quarkus-native-build
+      runAfter:
+        - maven-package-test
+      when:
+        - input: $(params.native)
+          operator: in
+          values: [ "true" ]
+      taskRef:
+        name: quarkus-native-build
+      workspaces:
+        - name: project-dir
+          workspace: project-dir
+
+    # - name: list-files
+    #   runAfter:
+    #     - maven-compile
+    #   taskSpec:
+    #     steps:
+    #       - name: list-files
+    #         image: quay.io/centos/centos:latest
+    #         script: |
+    #           #!/usr/bin/env bash
+    #           set -xe
+    #           ls -al $(workspaces.project-dir.path)/src/main/docker
+    #   workspaces:
+    #     - name: source
+    #       workspace: project-dir
+
+    - name: buildah-image
+      runAfter:
+        - quarkus-native-build
+        - maven-package-test
+      taskRef:
+        name: buildah
+      params:
+        - name: IMAGE
+          value: $(params.output-image)
+        - name: DOCKERFILE
+          value: $(params.dockerfile)
+        - name: REGISTRY_AUTH_PATH
+          value: $(workspaces.dockerconfig.path)
+      workspaces:
+        - name: source
+          workspace: project-dir
+        - name: dockerconfig
+          workspace: dockerconfig-ws

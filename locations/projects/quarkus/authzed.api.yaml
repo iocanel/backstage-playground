@@ -1,0 +1,29 @@
+apiVersion: backstage.io/v1alpha1
+kind: API
+metadata:
+  name: authzed.api
+  description: Authzed API 
+spec:
+  type: grpc
+  lifecycle: production
+  owner: Group:quarkus
+  definition:
+    $text: https://raw.githubusercontent.com/quarkiverse/quarkus-authzed-client/main/grpc/generator/src/main/proto/authzed/api/v1/core.proto
+  files:
+    - file_name: core.proto
+      file_path: grpc/generator/src/main/proto/authzed/api/v1/core.proto
+      url: https://raw.githubusercontent.com/quarkiverse/quarkus-authzed-client/main/grpc/generator/src/main/proto/authzed/api/v1/core.proto
+
+      imports:
+        - file_name: validate.proto
+          file_path: grpc/generator/src/main/proto/validate/validate.proto
+          url: https://raw.githubusercontent.com/quarkiverse/quarkus-authzed-client/main/grpc/generator/src/main/proto/validate/validate.proto
+        - file_name: validate.proto
+          file_path: grpc/generator/src/main/proto/validate/validate.proto
+          url: https://raw.githubusercontent.com/quarkiverse/quarkus-authzed-client/main/grpc/generator/src/main/proto/validate/validate.proto
+
+      
+  targets:
+    dev:
+      host: 0.0.0.0
+      port: 8443

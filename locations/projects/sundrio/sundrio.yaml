@@ -1,0 +1,17 @@
+apiVersion: backstage.io/v1alpha1
+kind: Component
+metadata:
+  name: sundrio
+  description: A collection of code generator tools
+  annotations:
+    backstage.io/source-location: url:https://github.com/sundrio/sundrio/
+    github.com/project-slug: sundrio/sundrio
+    backstage.io/techdocs-ref: dir:.
+  links:
+    - url: 'https://github.com/sundrio/sundrio'
+      title: 'GitHub Repo'
+spec:
+  type: library
+  owner: Group:sundrio
+  lifecycle: experimental
+  language: Java

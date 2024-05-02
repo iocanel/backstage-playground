@@ -1,0 +1,22 @@
+apiVersion: backstage.io/v1alpha1
+kind: Component
+metadata:
+  name: dekorate
+  description: A Kubernetes manifest manipulation framework for Java
+  annotations:
+    backstage.io/source-location: url:https://github.com/dekorateio/dekorate/
+    github.com/project-slug: dekorateio/dekorate
+    backstage.io/techdocs-ref: dir:.
+  links:
+    - url: 'https://github.com/dekorate.io/dekorate'
+      title: 'GitHub Repo'
+    - url: 'https://dekorate.io'
+      title: 'Home Page'
+spec:
+  type: library
+  owner: dekorate
+  lifecycle: experimental
+  language: Java
+  dependsOn:
+    - component:default/sundrio
+    - component:default/kubernetes-client

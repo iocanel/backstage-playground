@@ -1,0 +1,26 @@
+apiVersion: tekton.dev/v1beta1
+kind: Task
+metadata:
+  name: git-clone
+  namespace: {{ .Values.app.namespace }}
+  annotations:
+    argocd.argoproj.io/sync-wave: "0"
+spec:
+  params:
+    - name: url
+      description: The git repository url (e.g. http://github.com/myorg/myrepo.git)
+      type: string
+  workspaces:
+    - name: project-dir
+      description: A workspace for the task
+      optional: true
+      mountPath: /mnt/workspace
+  steps:
+    - name: clone
+      image: quay.io/redhat-cop/ubi8-git:v1.0
+      workingDir: $(workspaces.project-dir.path)
+      command:
+        - sh
+        - -c
+      args:
+        - git clone $(params.url) .

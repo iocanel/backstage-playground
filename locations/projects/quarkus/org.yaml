@@ -1,0 +1,10 @@
+---
+apiVersion: backstage.io/v1alpha1
+kind: Group
+metadata:
+  name: quarkus
+spec:
+  type: team
+  children: []
+  members: [User:iocanel]
+---

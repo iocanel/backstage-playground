@@ -1,0 +1,12 @@
+apiVersion: backstage.io/v1alpha1
+kind: Location
+metadata:
+  name: projects
+  description: A collection of my projects
+spec:
+  targets:
+    - ./iocanel/all.yaml
+    - ./sundrio/all.yaml
+    - ./fabric8/all.yaml
+    - ./dekorate/all.yaml
+    - ./quarkus/all.yaml

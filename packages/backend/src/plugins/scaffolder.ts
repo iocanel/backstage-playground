@@ -5,6 +5,7 @@ import { ScmIntegrations } from '@backstage/integration';
 import { createBuiltinActions, createRouter } from '@backstage/plugin-scaffolder-backend';
 import { createQuarkusApp, cloneQuarkusQuickstart } from '@qshift/plugin-quarkus-backend';
 import { createArgoCdResources } from '@roadiehq/scaffolder-backend-argocd'
+import saveApi from './api';
 
 export default async function createPlugin(
   env: PluginEnvironment,
@@ -24,6 +25,7 @@ export default async function createPlugin(
   const actions = [
     createArgoCdResources( env.config, env.logger ),
     ...builtInActions,
+    saveApi(catalogClient),
     createQuarkusApp(),
     cloneQuarkusQuickstart()
   ];

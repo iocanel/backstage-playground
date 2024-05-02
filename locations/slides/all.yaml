@@ -1,0 +1,10 @@
+apiVersion: backstage.io/v1alpha1
+kind: Location
+metadata:
+  name: slides
+  description: A collection of my slide decks
+spec:
+  targets:
+    - ./codeweek-introduction-to-backstage.yaml
+    - ./vf-introduction-to-backstage.yaml
+    - ./devoxx-backstage-as-a-cv.yaml

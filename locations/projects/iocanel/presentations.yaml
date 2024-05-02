@@ -1,0 +1,14 @@
+apiVersion: backstage.io/v1alpha1
+kind: Component
+metadata:
+  name: presentations
+  description: A repository with my presentaions
+  annotations:
+    backstage.io/source-location: url:https://github.com/iocanel/presentations/
+  links:
+    - url: 'https://github.com/iocanel/presentations'
+      title: 'GitHub Repo'
+spec:
+  type: documentation
+  owner: User:iocanel
+  lifecycle: experimental

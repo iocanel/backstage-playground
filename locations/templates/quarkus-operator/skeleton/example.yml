@@ -1,0 +1,8 @@
+apiVersion: ${{values.apiGroup}}/${{values.apiVersion}}
+kind: QuarkusApplication
+metadata:
+  name: example
+  namespace: ${{values.namespace}}
+spec:
+  coordinates: com.github.iocanel:quarkus-helloworld:1.2
+  repositoryUrl: https://jitpack.io

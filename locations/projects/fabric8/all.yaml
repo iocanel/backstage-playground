@@ -1,0 +1,9 @@
+apiVersion: backstage.io/v1alpha1
+kind: Location
+metadata:
+  name: fabric8
+  description: Root location
+spec:
+  targets:
+    - ./org.yaml
+    - ./kubernetes-client.yaml

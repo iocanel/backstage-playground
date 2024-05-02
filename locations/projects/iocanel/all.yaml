@@ -1,0 +1,11 @@
+apiVersion: backstage.io/v1alpha1
+kind: Location
+metadata:
+  name: iocanel
+  description: A collection of my projects
+spec:
+  targets:
+    - ./blog.yaml
+    - ./presentations.yaml
+    - ./iocanel.com.yaml
+    - ./hg2jj.yaml

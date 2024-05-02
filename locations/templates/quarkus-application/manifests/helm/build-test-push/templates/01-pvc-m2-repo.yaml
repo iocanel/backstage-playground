@@ -1,0 +1,12 @@
+﻿kind: PersistentVolumeClaim
+apiVersion: v1
+metadata:
+  name: m2-repo-pvc
+  namespace: {{ .Values.app.namespace }}
+spec:
+  accessModes:
+    - ReadWriteOnce
+  resources:
+    requests:
+      storage: 2Gi
+  volumeMode: Filesystem

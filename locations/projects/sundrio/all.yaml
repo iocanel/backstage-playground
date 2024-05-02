@@ -1,0 +1,9 @@
+apiVersion: backstage.io/v1alpha1
+kind: Location
+metadata:
+  name: sundrio
+  description: Root location
+spec:
+  targets:
+    - ./org.yaml
+    - ./sundrio.yaml

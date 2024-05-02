@@ -40,6 +40,7 @@ import {
     QuarkusVersionListField
 } from '@qshift/plugin-quarkus';
 import {QuarkusConsolePage} from "@qshift/plugin-quarkus-console";
+import { PresentationsPage, PresentationPage } from '@iocanel/plugin-presentation';
 
 const app = createApp({
   apis,
@@ -107,6 +108,8 @@ const routes = (
     <Route path="/quarkus" element={<QuarkusConsolePage />}/>
     <Route path="/settings" element={<UserSettingsPage />} />
     <Route path="/catalog-graph" element={<CatalogGraphPage />} />
+    <Route path="/presentations" element={<PresentationsPage />} />
+    <Route path="/presentations/:name" element={<PresentationPage />} />
   </FlatRoutes>
 );
 
